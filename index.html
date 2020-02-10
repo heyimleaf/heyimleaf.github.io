@@ -1,0 +1,42 @@
+<head>
+    <style>
+        img{
+            padding: 20px;
+            width: 15%;
+            height: auto;
+        }
+    </style>
+</head>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<body>
+    <div id="photo-items">
+          
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+        $.getJSON(flickerAPI, {
+            tags: "the king of fighters 98",
+            format: "json"
+        }).done(function (result, status, xhr) {
+            $.each(result.items, function (i, item) {
+                $("<img>").attr("src", item.media.m).appendTo("#photo-items");
+
+                if (i === 5) {
+                    return false;
+                }
+            });
+        }).fail(function (xhr, status, error) {
+            alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        });
+            
+    });
+</script>
+</body>
+<footer>
+</footer>
